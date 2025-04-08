@@ -1,5 +1,6 @@
 ﻿using ClassProject02.User;
 using ClassProject02.Maps;
+using ClassProject02.Object;
 
 namespace ClassProject02
 {
@@ -24,6 +25,7 @@ namespace ClassProject02
             player.Print(player.position, test);
 
             do {
+                ClearInputBuffer();
                 ConsoleKey userInput = Console.ReadKey(true).Key;
                 switch (userInput) {
                     case ConsoleKey.W:
@@ -41,6 +43,10 @@ namespace ClassProject02
                     case ConsoleKey.D:
                     case ConsoleKey.RightArrow:
                         player.Move(Direction.Right, test);
+                        break;
+                    case ConsoleKey.E:
+                        GameObject obj = test.GetMapObject(player.GetInteractCoord());
+                        player.Interact(obj);
                         break;
                     default:
                         // 반복문 탈출

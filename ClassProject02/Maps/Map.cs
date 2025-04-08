@@ -1,4 +1,5 @@
 ﻿using ClassProject02.User;
+using ClassProject02.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,11 @@ using System.Threading.Tasks;
 namespace ClassProject02.Maps
 {
     public abstract class Map
-    {
-        
+    {        
         // 문자 프리셋: ■ □ ▣ ▤ ▥ ▨ ▧ ▦ ▩
         public string[] map = new string[11];
         public Vector2 printStartPoint = new Vector2(2, 1);
-        // mapObject List가 필요
+        public List<GameObject> objList = new List<GameObject>();
 
         // 맵 출력 함수
         public void PrintMap() {
@@ -50,6 +50,15 @@ namespace ClassProject02.Maps
                     break;
             }
             return isMovable;
+        }
+        public GameObject GetMapObject(Vector2 targetPos) {
+            GameObject? returnObj = null;
+            foreach (GameObject obj in this.objList) {
+                if (obj.position == targetPos) {
+                    returnObj = obj;
+                }
+            }
+            return returnObj;
         }
     }                                              
 }

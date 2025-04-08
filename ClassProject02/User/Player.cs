@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using ClassProject02;
+using ClassProject02.Object;
 
 namespace ClassProject02.User
 {    
@@ -93,37 +94,37 @@ namespace ClassProject02.User
             Console.Write(this.playerShape);
         }
 
-        //// 상호작용 좌표 구하기
-        //public Vector2 GetInteractCoord()
-        //{
-        //    float x, y;
-        //    switch (this.direction)
-        //    {
-        //        case Direction.Left:
-        //            x = this.position.X - 1;
-        //            y = this.position.Y;
-        //            break;
-        //        case Direction.Right:
-        //            x = this.position.X + 1;
-        //            y = this.position.Y;
-        //            break;
-        //        case Direction.Down:
-        //            x = this.position.X;
-        //            y = this.position.Y + 1;
-        //            break;
-        //        case Direction.Up:
-        //        default:
-        //            x = this.position.X;
-        //            y = this.position.Y - 1;
-        //            break;
-        //    }
-        //    Vector2 interactionCoord = new Vector2(x, y);
-        //    return interactionCoord;
-        //}
-        //// 상호작용
-        //public void Interact(GameObject.GameObject obj)
-        //{
-
-        //}
+        // 상호작용 좌표 구하기
+        public Vector2 GetInteractCoord()
+        {
+            float x, y;
+            switch (this.direction)
+            {
+                case Direction.Left:
+                    x = this.position.X - 1;
+                    y = this.position.Y;
+                    break;
+                case Direction.Right:
+                    x = this.position.X + 1;
+                    y = this.position.Y;
+                    break;
+                case Direction.Down:
+                    x = this.position.X;
+                    y = this.position.Y + 1;
+                    break;
+                case Direction.Up:
+                default:
+                    x = this.position.X;
+                    y = this.position.Y - 1;
+                    break;
+            }
+            Vector2 interactionCoord = new Vector2(x, y);
+            return interactionCoord;
+        }
+        // 상호작용
+        public void Interact(GameObject obj)
+        {
+            obj.Interact();
+        }
     }
 }
