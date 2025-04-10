@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClassProject02.Maps;
+using ClassProject02.User;
 
 namespace ClassProject02.Object
 {
@@ -13,7 +14,7 @@ namespace ClassProject02.Object
         bool isRocked;
         ItemObj key;
 
-        public override void Interact() {
+        public override void Interact(Player player, Map map) {
             // 조사 텍스트를 출력한다.
 
             // 만약 잠겨있으며 사용자의 Inventory에 key가 있을 경우

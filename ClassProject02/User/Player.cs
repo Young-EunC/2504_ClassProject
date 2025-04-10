@@ -5,10 +5,19 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using ClassProject02;
+using ClassProject02.Maps;
 using ClassProject02.Object;
 
 namespace ClassProject02.User
-{    
+{
+    public enum Direction
+    {
+        Up, Down, Left, Right
+    }
+    public enum PlayerState
+    {
+        Normal, Interact
+    }
     public class Player
     {
         // move, rotate, interact
@@ -16,19 +25,21 @@ namespace ClassProject02.User
         public char playerShape;
         public Direction direction;
         public Vector2 position;
-        public Inventory inventory;
+        //public Inventory inventory;
+        public List<GameObject> inventory;
         public PlayerState state { get; set; }
 
         public Player() 
         {
             this.playerShape = '▲';
             this.direction = Direction.Up;
-            this.position = new Vector2(21, 8);
-            this.inventory = new Inventory();
+            //this.position = new Vector2(21, 8);
+            this.position = new Vector2(8, 6);
+            this.inventory = new List<GameObject>();
             this.state = PlayerState.Normal;
         }
 
-        public void Move(Direction moveDirection, Maps.Map map) 
+        public void Move(Direction moveDirection, Map map) 
         {
             Vector2 nextPos = this.position;
             Rotate(moveDirection);
@@ -77,7 +88,7 @@ namespace ClassProject02.User
                     break;
             }
         }
-        public void Print(Vector2 nextPos, Maps.Map map)
+        public void Print(Vector2 nextPos, Map map)
         {
             // 기존 위치의 플레이어를 삭제(원본 맵의 타일로 교체)
             Console.SetCursorPosition((int)this.position.X, (int)this.position.Y);
@@ -122,9 +133,9 @@ namespace ClassProject02.User
             return interactionCoord;
         }
         // 상호작용
-        public void Interact(GameObject obj)
+        public void Interact(GameObject obj, Map map)
         {
-            obj.Interact();
+            obj.Interact(this, map);
         }
     }
 }

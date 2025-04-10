@@ -4,14 +4,7 @@ using ClassProject02.Object;
 
 namespace ClassProject02
 {
-    public enum Direction
-    {
-        Up, Down, Left, Right
-    }
-    public enum PlayerState
-    {
-        Normal, Interact
-    }
+    //public delegate void MapEventHandler<T>(GameObject obj);
     internal class ProjectMain
     {
         static void Main(string[] args)
@@ -20,9 +13,13 @@ namespace ClassProject02
             Room01 test = new Room01();
             bool isInputValid = true;
 
+            Console.CursorVisible = false;
             ScreenClear();
             test.PrintMap();
+            test.PrintItem();
             player.Print(player.position, test);
+            //PrintScript();
+            //PrintActionKey();
 
             do {
                 ClearInputBuffer();
@@ -46,7 +43,10 @@ namespace ClassProject02
                         break;
                     case ConsoleKey.E:
                         GameObject obj = test.GetMapObject(player.GetInteractCoord());
-                        player.Interact(obj);
+                        if (obj is not null)
+                        {
+                            player.Interact(obj, test);
+                        }
                         break;
                     default:
                         // 반복문 탈출
@@ -60,21 +60,7 @@ namespace ClassProject02
         }
 
         static void ScreenClear() {
-            //Console.WriteLine("============================================");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||                                        ||");
-            //Console.WriteLine("||----------------------------------------||");
-            //Console.WriteLine("|| 한글은 한 글자당 두 칸의 간격을 가지나 띄 ||");
-            //Console.WriteLine("|| 어쓰기가 포함되니 알 수 없어졌다. 그냥 모 ||");
-            //Console.WriteLine("|| 든 텍스트 출력을 확인하며 간격을 조정하자 ||");
-            //Console.WriteLine("||========================================||");
-            //Console.WriteLine("|| E 조사 ||       |       |       |      ||");
-            //Console.WriteLine("============================================");
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine("============================================");
             Console.WriteLine("||                                        ||");
             Console.WriteLine("||                                        ||");
@@ -88,8 +74,15 @@ namespace ClassProject02
             Console.WriteLine("||                                        ||");
             Console.WriteLine("||                                        ||");
             Console.WriteLine("||========================================||");
-            Console.WriteLine("|| E 조사 ||       |       |       |      ||");
+            Console.WriteLine("||        ||       |       |       |      ||");
             Console.WriteLine("============================================");
+        }        
+        static void PrintActionKey() {
+            // 사용자가 상호작용이 가능한 상태일 경우 좌측 하단에 도움말처럼 출력함
+            char actionKey = 'E';
+            string actionKeyDesc = "조사";
+            Console.SetCursorPosition(3, 13);
+            Console.Write($"{actionKey} {actionKeyDesc}");
         }
         static void ClearInputBuffer()
         {
